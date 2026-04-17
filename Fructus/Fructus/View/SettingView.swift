@@ -42,6 +42,20 @@ struct SettingView: View {
                     
                     // MARK: - SECTION - 3
                     
+                    GroupBox(
+                        label: SettingLabelView(labelText: "Application", labelImage: "apps.iphone")
+                    ) {
+                        SettingRowView(name: "Developer", content: "John/Jane")
+                        SettingRowView(name: "Designer", content: "Robert Petras")
+                        SettingRowView(name: "Compatibility", content: "iOS 14")
+                        SettingRowView(name: "Website", linkLabel: "SwiftUI Masterclass", linkDestination: "swiftuimasterclass.com")
+                        SettingRowView(name: "Twitter", linkLabel: "@ajeets", linkDestination: "twitter.com/ajeets")
+                        SettingRowView(name: "SwiftUI", content: "4.0")
+                        SettingRowView(name: "Version", content: "1.1.0")
+
+                        
+                    }//: BOX
+                    
                 }
             }//:SCROLL
             .toolbar {
