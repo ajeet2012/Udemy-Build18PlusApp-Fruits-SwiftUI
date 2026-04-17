@@ -43,6 +43,8 @@ struct FruitDetailView: View {
                         
                         // NUTRIENTS
                         
+                        FruitNutrientsView(fruit: fruit)
+                        
                         // SUBHEADING
                         
                         Text("Learn more about \(fruit.title)".uppercased())
@@ -64,6 +66,7 @@ struct FruitDetailView: View {
                         
                     }//:VSTACK
                     .padding(.horizontal, 20)
+                    .padding(.vertical, 20)
                     .frame(maxWidth: 640, alignment: .center)
                 }//: VSTACK
                 .navigationBarTitle(fruit.title, displayMode: .inline)
