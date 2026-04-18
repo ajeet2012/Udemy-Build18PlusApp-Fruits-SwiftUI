@@ -9,28 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     
-    //MARK: - PROPERTIES
-    
-    var fruits: [Fruit]  = fruitData
+    var fruits: [Fruit] = fruitData
+    @State private var selectedFruit: Fruit?
     @State private var isShowingSettings: Bool = false
-    
-    //MARK: - BODY
     
     var body: some View {
         
-        NavigationStack {
-            List {
-                ForEach(fruits) { fruit in   // ❗️remove shuffled here
-                    NavigationLink(value: fruit) {
-                        FruitRowView(fruit: fruit)
-                            .padding(.vertical, 4)
-                    }
-                }
+        NavigationSplitView {
+            // LEFT SIDE (List)
+            List(fruits, selection: $selectedFruit) { fruit in
+                FruitRowView(fruit: fruit)
+                    .tag(fruit)
             }
             .navigationTitle("Fruits")
-            .navigationDestination(for: Fruit.self) { fruit in
-                FruitDetailView(fruit: fruit)
-            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -40,12 +31,22 @@ struct ContentView: View {
                     }
                 }
             }
-            .sheet(isPresented: $isShowingSettings) {
-                SettingView()
+            
+        } detail: {
+            // RIGHT SIDE (Detail)
+            if let fruit = selectedFruit {
+                FruitDetailView(fruit: fruit)
+            } else {
+                Text("Select a fruit")
+                    .foregroundColor(.gray)
             }
         }
-        
-        
+        .sheet(isPresented: $isShowingSettings) {
+            SettingView()
+        }
+        .onAppear {
+            selectedFruit = fruits.first
+        }
     }
 }
 
