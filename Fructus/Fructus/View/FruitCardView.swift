@@ -61,7 +61,6 @@ struct FruitCardView: View {
     }
 }
 
-#Preview {
+#Preview(traits: .fixedLayout(width: 320, height: 640)) {
     FruitCardView(fruit: fruitData[1])
-        .previewLayout(.fixed(width: 320, height: 640))
 }

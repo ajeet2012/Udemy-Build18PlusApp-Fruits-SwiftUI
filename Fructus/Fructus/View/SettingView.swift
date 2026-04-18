@@ -10,8 +10,9 @@ import SwiftUI
 struct SettingView: View {
     
     //MARK: - PROPERTIES
-    @Environment(\.isPresented) private var presentMode
     @Environment(\.dismiss) private var dismiss
+    
+    @AppStorage("shouldRestartOnboarding") var shouldRestartOnboarding: Bool = false
     
     //MARK: - BODY
     
@@ -39,6 +40,36 @@ struct SettingView: View {
                     }
                     // MARK: - SECTION - 2
                     
+                    GroupBox(label: SettingLabelView(labelText: "Customization", labelImage: "paintbrush")) {
+                        Divider().padding(.vertical, 4)
+                        Text("If you wish, you can restart the application by toggle the switch in this box. That way it starts the onboarding process and you will see the welcome screen again.")
+                            .padding(.vertical, 8)
+                            .frame(minHeight: 60)
+                            .layoutPriority(1)
+                            .font(.footnote)
+                            .multilineTextAlignment(.leading)
+                        
+                        Toggle(isOn: $shouldRestartOnboarding) {
+                            if shouldRestartOnboarding {
+                                Text("Restart".uppercased())
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color.green)
+                            }
+                            else {
+                                
+                                Text("Restart".uppercased())
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color.secondary)
+                            }
+                        }
+                        .padding()
+                        .background(
+                            Color(UIColor.tertiarySystemBackground)
+                                .clipShape(RoundedRectangle(cornerRadius: 8.0, style: .continuous))
+                        )
+                        
+                        
+                    }
                     
                     // MARK: - SECTION - 3
                     

@@ -10,15 +10,24 @@ import SwiftUI
 @main
 struct FructusApp: App {
     
-    @AppStorage("isOnboarding") var isOnboarding: Bool = false
-    
+    @AppStorage("isOnboarding") var isOnboarding: Bool = true
+    @AppStorage("shouldRestartOnboarding") var shouldRestartOnboarding: Bool = false
+
     var body: some Scene {
         WindowGroup {
-            if isOnboarding {
-                OnboardingView()
-            } else {
-                ContentView()
-            }            
+            Group {
+                if isOnboarding {
+                    OnboardingView()
+                } else {
+                    ContentView()
+                }
+            }
+            .onAppear {
+                if shouldRestartOnboarding {
+                    isOnboarding = true
+                    shouldRestartOnboarding = false // reset
+                }
+            }
         }
     }
 }

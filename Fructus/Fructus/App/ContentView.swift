@@ -17,32 +17,35 @@ struct ContentView: View {
     //MARK: - BODY
     
     var body: some View {
-        NavigationView {
+        
+        NavigationStack {
             List {
-                ForEach(fruits.shuffled()) { fruit in
-                    NavigationLink (destination: FruitDetailView(fruit: fruit)) {
+                ForEach(fruits) { fruit in   // ❗️remove shuffled here
+                    NavigationLink(value: fruit) {
                         FruitRowView(fruit: fruit)
                             .padding(.vertical, 4)
                     }
-
-                    
                 }
             }
             .navigationTitle("Fruits")
+            .navigationDestination(for: Fruit.self) { fruit in
+                FruitDetailView(fruit: fruit)
+            }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         isShowingSettings = true
                     } label: {
                         Image(systemName: "slider.horizontal.3")
                     }
-                    .sheet(isPresented: $isShowingSettings) {
-                        SettingView()
-                    }
                 }
             }
-            
-        }//: NAVIGATION
+            .sheet(isPresented: $isShowingSettings) {
+                SettingView()
+            }
+        }
+        
+        
     }
 }
 
